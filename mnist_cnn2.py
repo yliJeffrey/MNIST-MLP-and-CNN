@@ -1,10 +1,10 @@
 # Convolutional neural network (CNN) for MNIST dataset with random dropout and data augmentation
-# 0.37M parameters with random initilization
+# 0.37M parameters with random initialization
 # 3 convolutional layers: 64 + 128 + 256 filters
 # 1 fully connected layer: 128 units
 # EarlyStopping(patience=10)
 # loss: 0.0368 - accuracy: 0.9884 - val_loss: 0.0246 - val_accuracy: 0.9925 - 12s/epoch - 26ms/step
-# batch_size=128, epoches=200
+# batch_size=128, epochs=200
 # best result obtained at epoch 25
 
 import numpy as np
@@ -68,7 +68,7 @@ def create_model():
                   metrics=['accuracy'])
     return model
 
-def train(model, batch_size, epoches, X_train, Y_train, X_test, Y_test):
+def train(model, batch_size, epochs, X_train, Y_train, X_test, Y_test):
     checkpoint = ModelCheckpoint('bestModel/mc2.keras',
                                  monitor='val_loss',
                                  mode='min',
@@ -88,7 +88,7 @@ def train(model, batch_size, epoches, X_train, Y_train, X_test, Y_test):
 
     train_history = model.fit(data_gen.flow(X_train, Y_train, batch_size=batch_size),
                               validation_data=(X_test, Y_test),
-                              epochs=epoches,
+                              epochs=epochs,
                               callbacks=[early_stopping, checkpoint],
                               verbose=2)
     return train_history
@@ -112,7 +112,7 @@ def result_plt(hist):
     plt.plot(val_acc)
     plt.title("Train History of accuracy")
     plt.ylabel('accuracy')
-    plt.xlabel('epoche')
+    plt.xlabel('epoch')
     plt.legend(['train_acc', 'val_acc'], loc='lower right')
 
     plt.subplot(1, 2, 2)
@@ -120,7 +120,7 @@ def result_plt(hist):
     plt.plot(val_loss)
     plt.title("Train History of loss")
     plt.ylabel('loss')
-    plt.xlabel('epoche')
+    plt.xlabel('epoch')
     plt.legend(['train_loss', 'val_loss'], loc='upper right')
 
     fig, loss_ax = plt.subplots()
@@ -140,7 +140,7 @@ def main():
     (X_train, Y_train), (X_test, Y_test) = load_data()
     model = create_model()
 
-    # (model, batch_size, epoches, X_train, Y_train, X_test, Y_test)
+    # (model, batch_size, epochs, X_train, Y_train, X_test, Y_test)
     hist = train(model, 128, 200, X_train, Y_train, X_test, Y_test)
     result_plt(hist)
 

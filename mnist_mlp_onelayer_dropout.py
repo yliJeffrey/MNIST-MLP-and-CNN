@@ -1,9 +1,9 @@
 # Multilayer Perceptron (MLP) for MNIST dataset with random dropout
-# 0.79M parameters with random initilization
+# 0.79M parameters with random initialization
 # 1 hidden layer: 1000 units
 # EarlyStopping(patience=5)
 # loss: 0.0604 - accuracy: 0.9808 - val_loss: 0.0537 - val_accuracy: 0.9832 - 2s/epoch - 5ms/step
-# batch_size=128, epoches=50
+# batch_size=128, epochs=50
 # best result obtained at epoch 13
 
 import numpy as np
@@ -39,7 +39,7 @@ def create_model():
                   metrics=['accuracy'])
     return model
 
-def train(model, batch_size, epoches, X_train, Y_train, X_test, Y_test):
+def train(model, batch_size, epochs, X_train, Y_train, X_test, Y_test):
     checkpoint = ModelCheckpoint('bestModel/mmod.keras',
                                  monitor='val_loss',
                                  mode='min',
@@ -49,7 +49,7 @@ def train(model, batch_size, epoches, X_train, Y_train, X_test, Y_test):
     train_history = model.fit(x=X_train,
                               y=Y_train,
                               validation_data=(X_test, Y_test),
-                              epochs=epoches,
+                              epochs=epochs,
                               batch_size=batch_size,
                               callbacks=[early_stopping, checkpoint],
                               verbose=2)
@@ -74,7 +74,7 @@ def result_plt(hist):
     plt.plot(val_acc)
     plt.title("Train History of accuracy")
     plt.ylabel('accuracy')
-    plt.xlabel('epoche')
+    plt.xlabel('epoch')
     plt.legend(['train_acc', 'val_acc'], loc='lower right')
 
     plt.subplot(1, 2, 2)
@@ -82,7 +82,7 @@ def result_plt(hist):
     plt.plot(val_loss)
     plt.title("Train History of loss")
     plt.ylabel('loss')
-    plt.xlabel('epoche')
+    plt.xlabel('epoch')
     plt.legend(['train_loss', 'val_loss'], loc='upper right')
 
     fig, loss_ax = plt.subplots()

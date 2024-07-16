@@ -1,9 +1,9 @@
 # Multilayer Perceptron (MLP) for MNIST dataset with random dropout
-# 1.46M parameters with random initilization
+# 1.46M parameters with random initialization
 # 3 hidden layer: 1024 + 512 + 256 units
 # EarlyStopping(patience=5)
 # loss: 0.0449 - accuracy: 0.9860 - val_loss: 0.0622 - val_accuracy: 0.9828 - 2s/epoch - 5ms/step
-# batch_size=128, epoches=50
+# batch_size=128, epochs=50
 # best result obtained at epoch 12
 
 import numpy as np
@@ -54,7 +54,7 @@ def create_model():
                   metrics=['accuracy'])
     return model
 
-def train(model, batch_size, epoches, X_train, Y_train, X_test, Y_test):
+def train(model, batch_size, epochs, X_train, Y_train, X_test, Y_test):
     checkpoint = ModelCheckpoint('bestModel/mmtd.keras',
                                  monitor='val_loss',
                                  mode='min',
@@ -64,7 +64,7 @@ def train(model, batch_size, epoches, X_train, Y_train, X_test, Y_test):
     train_history = model.fit(x=X_train,
                               y=Y_train,
                               validation_data=(X_test, Y_test),
-                              epochs=epoches,
+                              epochs=epochs,
                               batch_size=batch_size,
                               callbacks=[early_stopping, checkpoint],
                               verbose=2)
