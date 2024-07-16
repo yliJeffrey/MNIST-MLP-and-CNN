@@ -35,7 +35,7 @@ def create_model():
     print(model.summary())  # summary of model
     plot_model(model, to_file='network/mmod.png', show_shapes=True)
     model.compile(loss='categorical_crossentropy',
-                  optimizer='adam',        # gradien descent
+                  optimizer='adam',        # gradient descent
                   metrics=['accuracy'])
     return model
 
